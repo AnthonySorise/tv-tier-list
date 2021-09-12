@@ -1,2 +1,2 @@
-const tiers = ["S", "A", "B", "C", "D", "E", "F"];
-export default tiers; 
+const tiers = ["S", "A", "B", "C", "D"];
+export default tiers;
