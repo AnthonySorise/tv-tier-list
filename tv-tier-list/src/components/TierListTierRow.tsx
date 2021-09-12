@@ -33,7 +33,7 @@ const TierListTierRow = ({tierLabel, tierColor}:TierListRow_PropsInterface) =>{
                     {tierLabel}
                 </Grid>
                 <Grid item xs={9} className={classes.rowItem}>
-                    List Items
+
                 </Grid>
 
             </Grid>
