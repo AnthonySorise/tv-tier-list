@@ -27,10 +27,10 @@ const TierListTierRow = ({tierLabel, tierColor}:TierListRow_PropsInterface) =>{
     return (
         <Box component="div" m={1} style={{backgroundColor: tierColor}} className={classes.root}>
             <Grid container spacing={2}>
-                <Grid item xs={2} className={classes.rowLabel}>
+                <Grid item xs={1} className={classes.rowLabel}>
                     {tierLabel}
                 </Grid>
-                <Grid item xs={10} className={classes.rowItem}>
+                <Grid item xs={11} className={classes.rowItem}>
 
                 </Grid>
 

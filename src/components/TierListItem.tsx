@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
             maxWidth: "175px",
             maxHeight: "125px",
             display:"inline-block",
-            margin:"0.5em",
+            margin:"0.25em",
         },
         content: {
             padding:"6px"

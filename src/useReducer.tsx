@@ -4,7 +4,7 @@ interface stateInterface {
 }
 type ACTIONTYPES = 
 {type:"updateSelectedShowID"; payload:number} |
-{type:"updateList"; payload:number[][]}
+{type:"updateTierOrder"; payload:number[][]}
 
 const Reducer = (state: stateInterface, action:ACTIONTYPES) => {
     switch(action.type) {
@@ -13,7 +13,7 @@ const Reducer = (state: stateInterface, action:ACTIONTYPES) => {
                 ...state, 
                 selectedShowID: action.payload
             }
-        case"updateList":
+        case"updateTierOrder":
             return{
                 ...state, 
                 tierOrder: action.payload

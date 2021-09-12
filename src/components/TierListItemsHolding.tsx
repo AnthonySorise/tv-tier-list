@@ -16,29 +16,27 @@ const useStyles = makeStyles((theme: Theme) =>
 const TierListItemsHolding = () =>{
     
     const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
-    useEffect(function(){
-        console.log("loadedFromListItemHolding")
-    }, [isEpisodeDataLoaded])
 
     const classes = useStyles();
     return (
-        <Box component="div" m={1} className={classes.root}>
-            {
-                isEpisodeDataLoaded ? 
-                    episodeData.map(function(episode:any, i:number){
-                        return(
-                        <TierListItem
-                            season={episode.season} 
-                            episode={episode.number} 
-                            title={episode.name} 
-                            img={episode.image.medium} 
-                            description = {episode.summary}
-                            key={i}/>
-                        )
-                    })
-                :<CircularProgress />
-            }
-        </Box>
+            <Box component="div" m={1} className={classes.root}>
+                {
+                    isEpisodeDataLoaded && state.tierOrder[5] && state.tierOrder[5].length ? 
+                        state.tierOrder[5].map(function(episodeDateIndex:number, i:number){
+                            let episode = episodeData[episodeDateIndex];
+                            return(
+                            <TierListItem
+                                season={episode.season} 
+                                episode={episode.number} 
+                                title={episode.name} 
+                                img={episode.image.medium} 
+                                description = {episode.summary}
+                                key={i}/>
+                            )
+                        })
+                    :<CircularProgress />
+                }
+            </Box>
     )
 }
 
