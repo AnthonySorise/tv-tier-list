@@ -1,3 +1,5 @@
+import { useContext, useEffect } from 'react';
+import { Context } from '../App';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 export interface TierListRow_PropsInterface {
     tierLabel: string,
-    tierColor:string;
+    tierColor:string
 }
 const TierListTierRow = ({tierLabel, tierColor}:TierListRow_PropsInterface) =>{
     const classes = useStyles();

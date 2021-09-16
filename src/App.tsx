@@ -1,6 +1,7 @@
 import {useEffect, useReducer, createContext} from 'react';
 import reducer from './useReducer'
 import useAPI from './useAPI';
+import tiers from './models/tiers'
 import './App.css';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -18,10 +19,15 @@ function App() {
     useEffect(function(){
         if(isEpisodeDataLoaded && episodeData){
             let initialHoldingOrder = [];
-            for(var i = 0; i < episodeData?.length; i++){
+            for(let i = 0; i < episodeData?.length; i++){
                 initialHoldingOrder.push(i);
             }
-            dispatch({type:"updateTierOrder", payload: [[], [], [] ,[], [], initialHoldingOrder]});
+            let initialTierOrder:number[][] = [];
+            for(let i = 0; i < tiers.length; i++){
+                initialTierOrder.push([]);
+            }
+            initialTierOrder.push(initialHoldingOrder);
+            dispatch({type:"updateTierOrder", payload: initialTierOrder});
         }
     }, [isEpisodeDataLoaded])   
 
