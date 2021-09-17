@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function ItemsGrid({ children, columns }) {
+const ItemsGrid = ({ children, columns }) => {
     return (
         <div
             style={{
@@ -14,3 +14,4 @@ export function ItemsGrid({ children, columns }) {
         </div>
     );
 }
+export default ItemsGrid;

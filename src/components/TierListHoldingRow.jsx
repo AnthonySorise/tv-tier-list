@@ -9,14 +9,12 @@ import {
     SortableContext,
     rectSortingStrategy
 } from "@dnd-kit/sortable";
-
-import { ItemsGrid } from "./ItemsGrid";
-import { SortableItem } from "./SortableItem";
-import { Item } from "./Item";
+import ItemsGrid from "./ItemsGrid";
+import SortableItem from "./SortableItem";
+import Item from "./Item";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
-
 
 const TierListHoldingRow = (props) => {
     const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
@@ -36,14 +34,14 @@ const TierListHoldingRow = (props) => {
                     </ItemsGrid>
                 </SortableContext>
                 <DragOverlay adjustScale={true}>
-                    {state.itemBeingDragged ? (
+                    {state.itemBeingDragged 
+                    ?
                         <Item url={state.itemBeingDragged} index={state.tierOrder[props.index].indexOf(state.itemBeingDragged)} />
-                    ) : null}
+                    : null}
                 </DragOverlay>
             </div>
             :   <CircularProgress /> }
         </Box>
     );
 };
-
 export default TierListHoldingRow;

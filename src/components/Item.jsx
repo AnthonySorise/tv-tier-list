@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-export const Item = forwardRef(({ url, index, faded, style, ...props }, ref) => {
+const Item = forwardRef(({ url, index, faded, style, ...props }, ref) => {
     const inlineStyles = {
         opacity: faded ? '0.2' : '1',
         transformOrigin: '0 0',
@@ -11,6 +11,6 @@ export const Item = forwardRef(({ url, index, faded, style, ...props }, ref) => 
         backgroundColor: 'grey',
         ...style,
     };
-
     return <div ref={ref} style={inlineStyles} {...props} />;
 });
+export default Item; 

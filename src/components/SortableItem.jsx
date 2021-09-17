@@ -2,9 +2,9 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-import { Item } from './Item';
+import Item from './Item';
 
-export const SortableItem = (props) => {
+const SortableItem = (props) => {
     const sortable = useSortable({ id: props.url });
     const {
         attributes,
@@ -30,3 +30,4 @@ export const SortableItem = (props) => {
         />
     );
 };
+export default SortableItem;

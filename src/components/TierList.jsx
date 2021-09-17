@@ -5,8 +5,6 @@ import Box from '@mui/material/Box';
 import TierListTierRow from './TierListTierRow';
 import TierListHoldingRow from './TierListHoldingRow';
 
-
-
 const TierList = (props) => {
     const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
     return (
@@ -24,5 +22,4 @@ const TierList = (props) => {
         </Box>
     );
 };
-
 export default TierList;
