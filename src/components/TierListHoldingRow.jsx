@@ -21,7 +21,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 const TierListHoldingRow = (props) => {
     const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
     return (
-        <Box sx={{height:"115px", margin:"0", backgroundColor: props.tierColor}}>
+        <Box sx={{height:"calc(100vh - 650px)", overflow:"auto"}}>
             {state.tierOrder[props.index]
             ?
             <div>

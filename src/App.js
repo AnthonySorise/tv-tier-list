@@ -44,7 +44,7 @@ function App() {
             initialTierOrder.push(photos);//TESTING
             dispatch({type:"updateTierOrder", payload: initialTierOrder});
         }
-    }, [isEpisodeDataLoaded])   
+    }, [isEpisodeDataLoaded])  
 
     const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
