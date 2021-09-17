@@ -28,7 +28,7 @@ const TierListTierRow = (props) => {
                     {state.tierOrder[props.index] 
                     ?
                     <SortableContext items={state.tierOrder[props.index]} strategy={rectSortingStrategy}>
-                        <ItemsGrid columns={4}>
+                        <ItemsGrid columns={8}>
                         {state.tierOrder[props.index] 
                         ? 
                         (state.tierOrder[props.index].map((url, index)=>{
