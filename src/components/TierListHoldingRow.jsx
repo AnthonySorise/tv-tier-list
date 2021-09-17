@@ -27,7 +27,7 @@ const TierListHoldingRow = (props) => {
             <div>
                 <SortableContext items={state.tierOrder[props.index]} strategy={rectSortingStrategy}>
                     <ItemsGrid columns={4}>
-                    {state.tierOrder[props.index].length
+                    {state.tierOrder[props.index]
                     ?
                         state.tierOrder[props.index].map((url, index) => (
                             <SortableItem key={url} url={url} index={index} />
