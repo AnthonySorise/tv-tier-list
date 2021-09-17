@@ -1,12 +1,11 @@
-interface stateInterface {
-    selectedShowID: number,
-    tierOrder:number[][]
-}
-type ACTIONTYPES = 
-{type:"updateSelectedShowID"; payload:number} |
-{type:"updateTierOrder"; payload:number[][]}
 
-const Reducer = (state: stateInterface, action:ACTIONTYPES) => {
+export const reducerActions = {
+    updateSelectedShowID: "updateSelectedShowID",
+    updateTierOrder: "updateTierOrder",
+    updateItemBeingDragged:"updateItemBeingDragged"
+};
+
+export const reducer = (state, action) => {
     switch(action.type) {
         case"updateSelectedShowID":
             return{
@@ -18,8 +17,12 @@ const Reducer = (state: stateInterface, action:ACTIONTYPES) => {
                 ...state, 
                 tierOrder: action.payload
             }
+        case"updateItemBeingDragged":
+            return{
+                ...state, 
+                itemBeingDragged: action.payload
+            }
         default:
             throw new Error("unrecognized reducer action")
     }
 }
-export default Reducer;
