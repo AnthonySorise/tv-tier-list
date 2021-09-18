@@ -31,10 +31,10 @@ const TierListHoldingRow = (props) => {
                     : null}
                     </ItemsGrid>
                 </SortableContext>
-                <DragOverlay adjustScale={false} style={{opacity:"0.5"}}>
+                <DragOverlay adjustScale={false}>
                     {state.itemBeingDragged 
                     ?
-                        <Item episodeId={state.itemBeingDragged} index={state.tierOrder[props.index].indexOf(state.itemBeingDragged)}/>
+                        <Item episodeId={state.itemBeingDragged} index={state.tierOrder[props.index].indexOf(state.itemBeingDragged)} style={{opacity:0.85, cursor:"grabbing"}}/>
                     : null}
                 </DragOverlay>
             </div>
