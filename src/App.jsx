@@ -39,7 +39,6 @@ function App() {
             }
             let initialHoldingOrder = Object.keys(episodeData);
             initialTierOrder["holding"] = initialHoldingOrder;
-            console.log("!!", initialTierOrder)
             dispatch({type: reducerActions.updateTierOrder, payload: initialTierOrder});
         }
     }, [isEpisodeDataLoaded])  
