@@ -1,6 +1,15 @@
 import {useContext, useEffect} from 'react';
-import {Context} from '../App'
+import {Context} from '../App.jsx'
+import {
+    DragOverlay,
+} from "@dnd-kit/core";
+import {
+    arrayMove,
+    SortableContext,
+    rectSortingStrategy
+} from "@dnd-kit/sortable";
 import tiersModel from '../models/tiers'
+import Item from './Item'
 import Box from '@mui/material/Box';
 import TierListTierRow from './TierListTierRow';
 import TierListHoldingRow from './TierListHoldingRow';
@@ -19,6 +28,12 @@ const TierList = (props) => {
                 :null
             }
             <TierListHoldingRow index={tiersModel.length} key={tiersModel.length}/>
+            <DragOverlay adjustScale={false}>
+                {state.itemBeingDragged 
+                ?
+                    <Item episodeId={state.itemBeingDragged} style={{opacity:0.85, cursor:"grabbing"}}/>
+                : null}
+            </DragOverlay>
         </Box>
     );
 };

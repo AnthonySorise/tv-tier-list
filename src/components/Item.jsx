@@ -1,5 +1,5 @@
 import React, { useContext, forwardRef } from 'react';
-import {Context} from '../App';
+import {Context} from '../App.jsx';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 

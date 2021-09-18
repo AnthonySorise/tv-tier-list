@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useContext } from "react";
-import {Context} from '../App';
+import {Context} from '../App.jsx';
 import tiersModel from '../models/tiers';
 import {
     DragOverlay,
@@ -9,6 +9,7 @@ import {
     SortableContext,
     rectSortingStrategy
 } from "@dnd-kit/sortable";
+import Droppable from "./Droppable";
 import ItemsGrid from "./ItemsGrid";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -22,13 +23,9 @@ const TierListTierRow = (props) => {
                     {props.tierLabel}
                 </Grid>
                 <Grid item xs={11}>
-                    {state.tierOrder[props.index] 
+                    {state.tierOrder[tiersModel[props.index]] 
                     ?
-                    <SortableContext items={state.tierOrder[props.index]} strategy={rectSortingStrategy}>
-                        <ItemsGrid>
-
-                        </ItemsGrid>
-                    </SortableContext>
+                        <Droppable id={tiersModel[props.index]} />
                     : null }
                 </Grid>
             </Grid>
