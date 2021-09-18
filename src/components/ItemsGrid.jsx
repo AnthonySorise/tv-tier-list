@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from "react";
 
-const ItemsGrid = ({ children, columns }) => {
+const ItemsGrid = ({ children }) => {
+    const [columns, setColumns] = useState(8);
     return (
         <div
             style={{

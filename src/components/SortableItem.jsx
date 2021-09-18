@@ -5,7 +5,7 @@ import { CSS } from '@dnd-kit/utilities';
 import Item from './Item';
 
 const SortableItem = (props) => {
-    const sortable = useSortable({ id: props.url });
+    const sortable = useSortable({ id: props.episodeId });
     const {
         attributes,
         listeners,

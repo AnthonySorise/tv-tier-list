@@ -1,6 +1,5 @@
 import React, { useState, useReducer, useContext } from "react";
 import {Context} from '../App';
-import tiersModel from '../models/tiers';
 import {
     DragOverlay,
 } from "@dnd-kit/core";
@@ -13,7 +12,6 @@ import ItemsGrid from "./ItemsGrid";
 import SortableItem from "./SortableItem";
 import Item from "./Item";
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const TierListHoldingRow = (props) => {
@@ -24,19 +22,19 @@ const TierListHoldingRow = (props) => {
             ?
             <div>
                 <SortableContext items={state.tierOrder[props.index]} strategy={rectSortingStrategy}>
-                    <ItemsGrid columns={8}>
+                    <ItemsGrid>
                     {state.tierOrder[props.index]
                     ?
-                        state.tierOrder[props.index].map((url, index) => (
-                            <SortableItem key={url} url={url} index={index} />
+                        state.tierOrder[props.index].map((episodeId, index) => (
+                            <SortableItem key={episodeId} episodeId={episodeId} index={index} />
                         ))
                     : null}
                     </ItemsGrid>
                 </SortableContext>
-                <DragOverlay adjustScale={false}>
+                <DragOverlay adjustScale={false} style={{opacity:"0.5"}}>
                     {state.itemBeingDragged 
                     ?
-                        <Item url={state.itemBeingDragged} index={state.tierOrder[props.index].indexOf(state.itemBeingDragged)} />
+                        <Item episodeId={state.itemBeingDragged} index={state.tierOrder[props.index].indexOf(state.itemBeingDragged)}/>
                     : null}
                 </DragOverlay>
             </div>

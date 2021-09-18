@@ -7,8 +7,12 @@ function useAPI(url){
     useEffect(() =>{
         fetch(url)
             .then(resp => resp.json())
-            .then((d) =>{
-                setEpisodeData(d);
+            .then((data) =>{
+                let episodeData = {};
+                data.forEach(episode => {
+                    episodeData[episode.id.toString()] = episode;
+                });
+                setEpisodeData(episodeData);
                 setIsEpisodeDataLoaded(true);
             })
     }, [url]);

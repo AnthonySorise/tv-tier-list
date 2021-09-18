@@ -36,12 +36,8 @@ function App() {
             for(let i = 0; i < tiers.length; i++){
                 initialTierOrder.push([]);
             }
-            let initialHoldingOrder = [];
-            for(let i = 0; i < episodeData?.length; i++){
-                initialHoldingOrder.push(i);
-            }
-            //initialTierOrder.push(initialHoldingOrder);
-            initialTierOrder.push(photos);//TESTING
+            let initialHoldingOrder = Object.keys(episodeData);
+            initialTierOrder.push(initialHoldingOrder);
             dispatch({type:"updateTierOrder", payload: initialTierOrder});
         }
     }, [isEpisodeDataLoaded])  

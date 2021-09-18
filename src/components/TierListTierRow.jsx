@@ -10,11 +10,8 @@ import {
     rectSortingStrategy
 } from "@dnd-kit/sortable";
 import ItemsGrid from "./ItemsGrid";
-import SortableItem from "./SortableItem";
-import Item from "./Item";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import CircularProgress from '@mui/material/CircularProgress';
 
 const TierListTierRow = (props) => {
     const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
@@ -28,13 +25,8 @@ const TierListTierRow = (props) => {
                     {state.tierOrder[props.index] 
                     ?
                     <SortableContext items={state.tierOrder[props.index]} strategy={rectSortingStrategy}>
-                        <ItemsGrid columns={8}>
-                        {state.tierOrder[props.index] 
-                        ? 
-                        (state.tierOrder[props.index].map((url, index)=>{
-                            <SortableItem key={url} url={url} index={index} />
-                        })) 
-                        : null}
+                        <ItemsGrid>
+
                         </ItemsGrid>
                     </SortableContext>
                     : null }
