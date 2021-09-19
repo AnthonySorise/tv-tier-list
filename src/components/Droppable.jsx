@@ -31,7 +31,7 @@ const Droppable = ({ id }) => {
     return (
         <SortableContext id={id} key={id} items={state.tierOrder[id]} strategy={rectSortingStrategy} style={{width:"100%"}}>
             <div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave} style={{height:"100%"}}>
-                <ItemsGrid id={id}>
+                <ItemsGrid id={id} style={{height:"100%"}}>
                     {state.tierOrder[id]
                         ?
                         state.tierOrder[id].map((episodeId, index) => (
