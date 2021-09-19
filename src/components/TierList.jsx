@@ -22,13 +22,13 @@ const TierList = (props) => {
                 tiersModel ? 
                 tiersModel.map(function(tierModel, i){
                     return(
-                    <TierListTierRow index={i} tierLabel={tierModel.label} tierColor={tierModel.color} key={i}/>
+                    <TierListTierRow index={i} tierLabel={tierModel.label} tierColor={tierModel.color} key={tierModel.label}/>
                     )
                 })
                 :null
             }
             <TierListHoldingRow index={tiersModel.length} key={tiersModel.length}/>
-            <DragOverlay adjustScale={false}>
+            <DragOverlay adjustScale={false} style={{pointerEvents:"none"}}>
                 {state.itemBeingDragged 
                 ?
                     <Item episodeId={state.itemBeingDragged} style={{opacity:0.85, cursor:"grabbing"}}/>

@@ -18,8 +18,8 @@ const TierListTierRow = (props) => {
     const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
 
     return (
-        <Box sx={{minHeight:"115px", margin:"0", backgroundColor: props.tierColor}}>
-            <Grid container spacing={0} sx={{height:"100%"}}>
+        <Box sx={{minHeight:"152px", margin:"0", backgroundColor: props.tierColor}}>
+            <Grid container spacing={0} sx={{minHeight:"152px"}}>
                 <Grid item xs={1} sx={{display:"flex", justifyContent:"center", alignItems:"center", fontSize:"2em"}}>
                     {props.tierLabel}
                 </Grid>
