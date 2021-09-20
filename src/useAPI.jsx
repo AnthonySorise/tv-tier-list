@@ -5,7 +5,8 @@ function useAPI(url) {
     const [isEpisodeDataLoaded, setIsEpisodeDataLoaded] = useState(false)
 
     useEffect(() => {
-        if (url == -1) {
+        console.log("URL: ", url)
+        if (url == "https://api.tvmaze.com/shows/-1/episodes") {
             setEpisodeData(null);
             setIsEpisodeDataLoaded(false);
             return
