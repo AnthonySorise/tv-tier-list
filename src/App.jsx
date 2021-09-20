@@ -9,18 +9,7 @@ import Typography from '@mui/material/Typography';
 import Search from './components/Search'
 import TierList from './components/TierList'
 import './App.css';
-import {
-    closestCorners,
-    closestCenter,
-    DndContext,
-    MouseSensor,
-    TouchSensor,
-    KeyboardSensor,
-    useSensor,
-    useSensors
-} from "@dnd-kit/core";
-import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
-import photos from "./photos.json";
+
 
 export const Context = createContext([]);
 function App() {
@@ -48,102 +37,17 @@ function App() {
         }
     }, [isEpisodeDataLoaded, episodeData])
 
-    const sensors = useSensors(
-        useSensor(MouseSensor),
-        useSensor(TouchSensor),
-        useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates,
-        })
-    );
-
-    function handleDragStart(event) {
-        dispatch({ type: reducerActions.updateItemBeingDragged, payload: event.active.id })
-    }
-
-    const handleDragEnd = ({ active, over }) => {
-        const activeContainer = active.data.current.sortable.containerId;
-        const isMovingToNewRow = state.rowBeingAddedTo && state.rowBeingAddedTo !== activeContainer;
-
-        if (!over && !isMovingToNewRow) {
-            dispatch({ type: reducerActions.updateItemBeingDragged, payload: null });
-            return;
-        }
-
-        if (active?.id !== over?.id) {   
-            const overContainer = isMovingToNewRow ? state.rowBeingAddedTo : over.data.current?.sortable.containerId || over.id;
-            const activeIndex = active.data.current.sortable.index;
-            const overIndex = isMovingToNewRow 
-                ? state.rowBeingAddedTo === "holding" ? 0 : state.tierOrder[state.rowBeingAddedTo].length 
-                : over.id in state.tierOrder
-                    ? state.tierOrder[overContainer].length + 1
-                    : over.data.current.sortable.index;
-
-            let newOrder;
-            if(isMovingToNewRow){
-                newOrder = moveBetweenContainers(
-                    state.tierOrder,
-                    activeContainer,
-                    activeIndex,
-                    overContainer,
-                    overIndex,
-                    active.id
-                );
-            }
-            else if (activeContainer === overContainer) {
-                newOrder = {
-                    ...state.tierOrder,
-                    [overContainer]: arrayMove(
-                        state.tierOrder[overContainer],
-                        activeIndex,
-                        overIndex
-                    ),
-                };
-            } 
-
-            dispatch({ type: reducerActions.updateTierOrder, payload: newOrder });
-            console.log(newOrder)
-        }
-        dispatch({ type: reducerActions.updateItemBeingDragged, payload: null })
-    };
-
-    const moveBetweenContainers = (
-        items,
-        activeContainer,
-        activeIndex,
-        overContainer,
-        overIndex,
-        item
-    ) => {
-        return {
-            ...items,
-            [activeContainer]: removeAtIndex(items[activeContainer], activeIndex),
-            [overContainer]: insertAtIndex(items[overContainer], overIndex, item),
-        };
-    };
-
-    function handleDragCancel() {
-        dispatch({ action: reducerActions.updateItemBeingDragged, payload: null })
-    }
-
     return (
         <Context.Provider value={{ dispatch, state, episodeData, isEpisodeDataLoaded }}>
             <Container maxWidth="xl">
                 <Typography component="div" style={{ backgroundColor: '#cfe8fc', textAlign: 'center', minHeight: '100vh', cursor:(state.itemBeingDragged)?'grabbing':"" }}>
+
                     <div className="header">
                         TV Tier List
                     </div>
 
                     <Search />
-
-                    <DndContext
-                        sensors={sensors}
-                        // collisionDetection={closestCenter}
-                        onDragStart={handleDragStart}
-                        onDragEnd={handleDragEnd}
-                        onDragCancel={handleDragCancel}
-                    >
-                        <TierList />
-                    </DndContext>
+                    <TierList />
 
                 </Typography>
             </Container>
