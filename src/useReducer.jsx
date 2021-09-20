@@ -11,6 +11,7 @@ export const reducer = (state, action) => {
         case reducerActions.updateSelectedShowID:
             return{
                 ...state, 
+                tierOrder: {},
                 selectedShowID: action.payload
             }
         case reducerActions.updateTierOrder:

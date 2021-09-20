@@ -6,6 +6,7 @@ import tiers from './models/tiers';
 import { arrayMove, insertAtIndex, removeAtIndex } from "./utils/array";
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import Search from './components/Search'
 import TierList from './components/TierList'
 import './App.css';
 import {
@@ -24,12 +25,12 @@ import photos from "./photos.json";
 export const Context = createContext([]);
 function App() {
     const initialState = {
-        selectedShowID: 551,//-1,
+        selectedShowID: -1,
         tierOrder: {},
         itemBeingDragged: null
     }
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { episodeData, isEpisodeDataLoaded } = useAPI('https://api.tvmaze.com/shows/' + state.selectedShowID + '/episodes');
+    const { episodeData, isEpisodeDataLoaded } =  useAPI('https://api.tvmaze.com/shows/' + state.selectedShowID + '/episodes');
 
     useEffect(function () {
         if (isEpisodeDataLoaded && episodeData) {
@@ -45,7 +46,7 @@ function App() {
 
             dispatch({ type: reducerActions.updateTierOrder, payload: initialTierOrder });
         }
-    }, [isEpisodeDataLoaded])
+    }, [isEpisodeDataLoaded, episodeData])
 
     const sensors = useSensors(
         useSensor(MouseSensor),
@@ -127,16 +128,17 @@ function App() {
     return (
         <Context.Provider value={{ dispatch, state, episodeData, isEpisodeDataLoaded }}>
             <Container maxWidth="xl">
-                <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh', textAlign: 'center', cursor:(state.itemBeingDragged)?'grabbing':"" }}>
+                <Typography component="div" style={{ backgroundColor: '#cfe8fc', textAlign: 'center', minHeight: '100vh', cursor:(state.itemBeingDragged)?'grabbing':"" }}>
                     <div className="header">
                         TV Tier List
                     </div>
+
+                    <Search />
 
                     <DndContext
                         sensors={sensors}
                         // collisionDetection={closestCenter}
                         onDragStart={handleDragStart}
-                        // onDragOver={handleDragOver}
                         onDragEnd={handleDragEnd}
                         onDragCancel={handleDragCancel}
                     >

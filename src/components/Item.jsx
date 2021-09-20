@@ -12,8 +12,9 @@ const Item = forwardRef(({ episodeId, index, style, ...props }, ref) => {
     <Card ref={ref} style={style} {...props} sx={{width:"100%", maxWidth:"100%", display:"inline-block", margin:"0.25em", cursor:(state.itemBeingDragged) ? "grabbing" : "grab", opacity:isBeingDragged ? "0.5" : "1"}}>
         <CardContent sx={{padding:"0!important"}}>
             <span>S{episode?.season}E{episode?.number}</span>
-            <div style={{ backgroundImage: `url("${episodeImage}")`, backgroundSize: 'contain', height: "100px", backgroundPosition:"center", backgroundSize:"cover"}}></div>
-            {/* <span>{title}</span> */}
+            <div style={{ backgroundImage: `url("${episodeImage}")`, backgroundSize: 'contain', height: "100px", backgroundPosition:"center", backgroundSize:"cover"}}>
+                <span>{!episodeImage ? episode.name : ""}</span>
+            </div>
         </CardContent>
     </Card>)
 });

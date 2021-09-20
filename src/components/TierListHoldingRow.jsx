@@ -24,7 +24,7 @@ const TierListHoldingRow = (props) => {
             <div>
                 <Droppable id={"holding"}/>
             </div>
-            :   <CircularProgress /> }
+            :   state.selectedShowID != -1 ? <CircularProgress sx={{marginTop:"2em"}}/> : <div>Search a show!</div> }
         </Box>
     );
 };
