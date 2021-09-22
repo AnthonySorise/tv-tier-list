@@ -1,6 +1,7 @@
 {
   "name": "tv-tier-list",
   "version": "0.1.0",
+  "homepage": "https://anthonysorise.com/tv-tier-list",
   "private": true,
   "dependencies": {
     "@dnd-kit/core": "^3.1.1",

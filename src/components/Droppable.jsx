@@ -28,19 +28,22 @@ const Droppable = ({ id }) => {
     }
 
 
-    return (
-        <SortableContext id={id} key={id} items={state.tierOrder[id]} strategy={rectSortingStrategy} style={{width:"100%"}}>
-            <div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave} style={{height:"100%"}}>
-                <ItemsGrid id={id} style={{height:"100%"}}>
-                    {state.tierOrder[id]
-                        ?
-                        state.tierOrder[id].map((episodeId, index) => (
-                            <SortableItem key={episodeId} episodeId={episodeId} index={index} />
-                        ))
-                        : null}
-                </ItemsGrid>
-            </div>
-        </SortableContext>
+    return (    
+        <div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave} style={{height:"99%", minHeight:"152px"}}>
+                {state.tierOrder[id] 
+                ?
+                <SortableContext id={id} key={id} items={state.tierOrder[id]} strategy={rectSortingStrategy} style={{width:"100%"}}>
+                    <ItemsGrid id={id}>
+                        {state.tierOrder[id]
+                            ?
+                            state.tierOrder[id].map((episodeId, index) => (
+                                <SortableItem key={episodeId} episodeId={episodeId} index={index} />
+                            ))
+                            : null}
+                    </ItemsGrid>
+                </SortableContext>
+                : null }
+        </div>
     );
 };
 
