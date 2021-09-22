@@ -33,15 +33,19 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 const Item = forwardRef(({ episodeId, index, style, ...props }, ref) => {
     const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
     let episode = episodeData[episodeId];
-    console.log(episode)
     let episodeLabel = 'S' + prependZero(episode?.season) + 'E' + prependZero(episode?.number);
     let episodeImage = episode && episode.image && episode.image.medium ? episode.image.medium : '';
     let isBeingDragged = (state.itemBeingDragged == episodeId);
+    
+    let infoIcon = <InfoIcon sx={{cursor:!state.itemBeingDragged ? 'help' : 'grabbing', color:'gray', left:'100%', transform:'translateX(-24px)', position:'absolute'}}></InfoIcon>;
     return (
     <Card ref={ref} style={style} {...props} sx={{width:'100%', maxWidth:'100%', display:'inline-block', margin:'0.25em', cursor:(state.itemBeingDragged) ? 'grabbing' : 'grab', opacity:isBeingDragged ? '0.5' : '1'}}>
         <CardContent sx={{padding:'0!important'}}>
             <div style={{display:'flex', position:'relative', justifyContent:'center'}}>
                 <span style={{marginLeft:'auto', marginRight:'auto'}}>{episodeLabel}</span>
+
+                {!state.itemBeingDragged
+                ?
                 <HtmlTooltip title={
                     <React.Fragment>
                         {episode.name}
@@ -54,8 +58,11 @@ const Item = forwardRef(({ episodeId, index, style, ...props }, ref) => {
                         } 
                     </React.Fragment>
                 } placement='top'>
-                    <InfoIcon sx={{cursor:'help', color:'gray', left:'100%', transform:'translateX(-24px)', position:'absolute'}}></InfoIcon>
+                    {infoIcon}
                 </HtmlTooltip>
+                :
+                infoIcon
+                }
             </div>
             <div style={{ backgroundImage: `url('${episodeImage}')`, backgroundSize: 'contain', height: '100px', backgroundPosition:'center', backgroundSize:'cover'}}>
                 <span>{!episodeImage ? episode.name : ''}</span>

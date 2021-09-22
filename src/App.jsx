@@ -47,7 +47,7 @@ function App() {
         <Context.Provider value={{ dispatch, state, episodeData, isEpisodeDataLoaded }}>
             <ThemeProvider theme={theme}>
 
-            <div style={{width:'100vw', cursor:(state.itemBeingDragged)?'grabbing':''}}>
+            <div style={{cursor:(state.itemBeingDragged)?'grabbing':''}}>
                 <Container maxWidth="xl">
                     <Typography component="div" style={{ backgroundColor: 'black', textAlign: 'center', minHeight: '100vh' }}>
 

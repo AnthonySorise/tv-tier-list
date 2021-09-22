@@ -46,55 +46,36 @@ const TierList = (props) => {
         }
 
         if (active?.id !== over?.id) {   
-            const overContainer = isMovingToNewRow ? state.rowBeingAddedTo : over.data.current?.sortable.containerId || over.id;
-            const activeIndex = active.data.current.sortable.index;
+            const overContainer = isMovingToNewRow 
+                ? state.rowBeingAddedTo 
+                : over.data.current?.sortable.containerId || over.id;
             const overIndex = isMovingToNewRow 
                 ? state.rowBeingAddedTo === "holding" ? 0 : state.tierOrder[state.rowBeingAddedTo].length 
                 : over.id in state.tierOrder
                     ? state.tierOrder[overContainer].length + 1
                     : over.data.current.sortable.index;
+            const activeIndex = active.data.current.sortable.index;
 
-            let newOrder;
-            if(isMovingToNewRow){
-                newOrder = moveBetweenContainers(
-                    state.tierOrder,
-                    activeContainer,
-                    activeIndex,
-                    overContainer,
-                    overIndex,
-                    active.id
-                );
-            }
-            else if (activeContainer === overContainer) {
-                newOrder = {
+            let newOrder = isMovingToNewRow
+            ?
+                {
+                    ...state.tierOrder,
+                    [activeContainer]: removeAtIndex(state.tierOrder[activeContainer], activeIndex),
+                    [overContainer]: insertAtIndex(state.tierOrder[overContainer], overIndex, active.id)
+                }
+            :
+                {
                     ...state.tierOrder,
                     [overContainer]: arrayMove(
                         state.tierOrder[overContainer],
                         activeIndex,
                         overIndex
-                    ),
-                };
-            } 
-
+                    )
+                }
             dispatch({ type: reducerActions.updateTierOrder, payload: newOrder });
-            console.log(newOrder)
+            console.log(newOrder);
         }
-        dispatch({ type: reducerActions.updateItemBeingDragged, payload: null })
-    };
-
-    const moveBetweenContainers = (
-        items,
-        activeContainer,
-        activeIndex,
-        overContainer,
-        overIndex,
-        item
-    ) => {
-        return {
-            ...items,
-            [activeContainer]: removeAtIndex(items[activeContainer], activeIndex),
-            [overContainer]: insertAtIndex(items[overContainer], overIndex, item),
-        };
+        dispatch({ type: reducerActions.updateItemBeingDragged, payload: null });
     };
 
     function handleDragCancel() {
