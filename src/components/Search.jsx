@@ -24,12 +24,6 @@ export default function Search() {
     const loading = (open && options.length === 0 && inputValue.length != 0);
     
     React.useEffect(() => {
-        if (!open) {
-            setOptions([]);
-        }
-    }, [open]);
-
-    React.useEffect(() => {
         setOptions([])
     }, [inputValue]);
 

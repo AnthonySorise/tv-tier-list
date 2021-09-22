@@ -22,7 +22,7 @@ const TierListHoldingRow = (props) => {
             {state.tierOrder["holding"]
             ?
                 <Droppable id={"holding"}/>
-            :   state.selectedShowID !== -1 ? <CircularProgress sx={{marginTop:"1em"}}/> : <div>Search a show!</div> }
+            :   state.selectedShowID != -1 ? <CircularProgress sx={{marginTop:"2em"}}/> : null }
         </Box>
     );
 };
