@@ -37,11 +37,12 @@ const TierList = (props) => {
     }
 
     const handleDragEnd = ({ active, over }) => {
+        dispatch({ type: reducerActions.updateItemBeingDragged, payload: null });
+
         const activeContainer = active.data.current.sortable.containerId;
         const isMovingToNewRow = state.rowBeingAddedTo && state.rowBeingAddedTo !== activeContainer;
 
         if (!over && !isMovingToNewRow) {
-            dispatch({ type: reducerActions.updateItemBeingDragged, payload: null });
             return;
         }
 
@@ -75,11 +76,10 @@ const TierList = (props) => {
             dispatch({ type: reducerActions.updateTierOrder, payload: newOrder });
             console.log(newOrder);
         }
-        dispatch({ type: reducerActions.updateItemBeingDragged, payload: null });
     };
 
     function handleDragCancel() {
-        dispatch({ action: reducerActions.updateItemBeingDragged, payload: null })
+        dispatch({ action: reducerActions.updateItemBeingDragged, payload: null });
     }
     
     return (
@@ -104,7 +104,7 @@ const TierList = (props) => {
                 <DragOverlay adjustScale={false} style={{pointerEvents:"none"}}>
                     {state.itemBeingDragged 
                     ?
-                        <Item episodeId={state.itemBeingDragged} style={{opacity:0.85, cursor:"grabbing"}}/>
+                        <Item episodeId={state.itemBeingDragged} style={{opacity:0.85}}/>
                     : null}
                 </DragOverlay>
             </Box>

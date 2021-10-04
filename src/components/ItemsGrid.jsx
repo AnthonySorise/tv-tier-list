@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ItemsGrid = ({ children }) => {
+const ItemsGrid = (props) => {
     const [columns, setColumns] = useState(8);
     return (
         <div
@@ -8,10 +8,12 @@ const ItemsGrid = ({ children }) => {
                 display: 'grid',
                 gridTemplateColumns: `repeat(${columns}, 1fr)`,
                 gridGap: 10,
-                padding: 10,
+                padding: 0,
+                height:'100%',
             }}
+            rowID = {props.id}
         >
-            {children}
+            {props.children}
         </div>
     );
 }

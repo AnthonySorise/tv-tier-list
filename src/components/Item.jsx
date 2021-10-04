@@ -35,11 +35,10 @@ const Item = forwardRef(({ episodeId, index, style, ...props }, ref) => {
     let episode = episodeData[episodeId];
     let episodeLabel = 'S' + prependZero(episode?.season) + 'E' + prependZero(episode?.number);
     let episodeImage = episode && episode.image && episode.image.medium ? episode.image.medium : '';
-    let isBeingDragged = (state.itemBeingDragged == episodeId);
     
     let infoIcon = <InfoIcon sx={{cursor:!state.itemBeingDragged ? 'help' : 'grabbing', color:'gray', left:'100%', transform:'translateX(-24px)', position:'absolute'}}></InfoIcon>;
     return (
-    <Card ref={ref} style={style} {...props} sx={{width:'100%', maxWidth:'100%', display:'inline-block', margin:'0.25em', cursor:(state.itemBeingDragged) ? 'grabbing' : 'grab', opacity:isBeingDragged ? '0.5' : '1'}}>
+    <Card ref={ref} style={style} {...props} sx={{width:'100%', maxWidth:'100%', my:'auto!important', display:'inline-block', margin:'0.25em', cursor:(state.itemBeingDragged) ? 'grabbing' : 'grab'}}>
         <CardContent sx={{padding:'0!important'}}>
             <div style={{display:'flex', position:'relative', justifyContent:'center'}}>
                 <span style={{marginLeft:'auto', marginRight:'auto'}}>{episodeLabel}</span>
@@ -68,6 +67,7 @@ const Item = forwardRef(({ episodeId, index, style, ...props }, ref) => {
                 <span>{!episodeImage ? episode.name : ''}</span>
             </div>
         </CardContent>
-    </Card>)
+    </Card>
+    )
 });
 export default Item;

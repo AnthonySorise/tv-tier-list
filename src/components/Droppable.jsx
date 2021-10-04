@@ -13,23 +13,35 @@ const Droppable = ({ id }) => {
     const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
 
 
-    const onMouseOver = () =>{
+    const onMouseEnter = (e) =>{            
         if(state.itemBeingDragged){
-            if(id != state.updateRowBeingAddedTo){
+            if(id != state.rowBeingAddedTo){
                 dispatch({type:reducerActions.updateRowBeingAddedTo, payload:id});
             }
         }
-        else{
+        else if (state.updateRowBeingAddedTo != null){
             dispatch({type:reducerActions.updateRowBeingAddedTo, payload:null});
         }
     }
-    const onMouseLeave = () =>{
-        dispatch({type:reducerActions.updateRowBeingAddedTo, payload:null});
+
+    const onTouchMove = (e) => {
+        if(e.changedTouches && e.changedTouches.length && e.changedTouches[0].clientX && e.changedTouches[0].clientY){
+            let id = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY).getAttribute("rowID");
+
+
+            if(state.itemBeingDragged && id){
+                if(id != state.rowBeingAddedTo){
+                    dispatch({type:reducerActions.updateRowBeingAddedTo, payload:id});
+                }
+            }
+            else if (state.updateRowBeingAddedTo != null){
+                dispatch({type:reducerActions.updateRowBeingAddedTo, payload:null});
+            }
+        }
     }
 
-
     return (    
-        <div onMouseOver={onMouseOver} onMouseLeave={onMouseLeave} style={{height:"99%", minHeight:"152px"}}>
+        <div onMouseEnter={onMouseEnter} onTouchMove={onTouchMove} style={{height:"99%", minHeight:"152px"}} rowID={id}>
                 {state.tierOrder[id] 
                 ?
                 <SortableContext id={id} key={id} items={state.tierOrder[id]} strategy={rectSortingStrategy} style={{width:"100%"}}>
