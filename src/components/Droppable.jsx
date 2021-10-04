@@ -12,7 +12,7 @@ const Droppable = ({ id }) => {
     const { setNodeRef } = useDroppable({ id });
     const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
 
-    const onMouseEnter = (e) =>{            
+    const onMouseOver = (e) =>{            
         if(state.itemBeingDragged){
             if(id != state.rowBeingAddedTo){
                 dispatch({type:reducerActions.updateRowBeingAddedTo, payload:id});
@@ -40,7 +40,7 @@ const Droppable = ({ id }) => {
     }
 
     return (    
-        <div onMouseEnter={onMouseEnter} onTouchMove={onTouchMove} style={{height:"100%", minHeight:"124px"}} tierID={id}>
+        <div onMouseOver={onMouseOver} onTouchMove={onTouchMove} style={{height:"100%", minHeight:"124px"}} tierID={id}>
                 {state.tierOrder[id] 
                 ?
                 <SortableContext id={id} key={id} items={state.tierOrder[id]} strategy={rectSortingStrategy} style={{width:"100%"}}>
