@@ -1,7 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import useWindowSize from '../useWindowSize'
 
 const ItemsGrid = (props) => {
-    const [columns, setColumns] = useState(8);
+    const width = useWindowSize().width;
+    const columns = useMemo(()=>{
+        if(width > 1025){
+            return 8
+        }
+        else if(width > 1024){
+            return 8
+        }
+        else if(width > 768){
+            return 6
+        }
+        else return 4
+    }, [width])
+
     return (
         <div
             style={{
@@ -11,7 +25,7 @@ const ItemsGrid = (props) => {
                 padding: 0,
                 height:'100%',
             }}
-            rowID = {props.id}
+            tierID = {props.id}
         >
             {props.children}
         </div>

@@ -18,7 +18,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 const TierListHoldingRow = (props) => {
     const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
     return (
-        <Box>
+        <Box mt={1}>
             {state.tierOrder["holding"]
             ?
                 <Droppable id={"holding"}/>

@@ -23,7 +23,7 @@ const TierListTierRow = (props) => {
                 <Grid item xs={1} sx={{display:"flex", justifyContent:"center", alignItems:"center", fontSize:"2em"}}>
                     {props.tierLabel}
                 </Grid>
-                <Grid item xs={11}>
+                <Grid item xs={11} my={1} px={1}>
                     <Droppable id={tiersModel[props.index].label} />
                 </Grid>
             </Grid>
