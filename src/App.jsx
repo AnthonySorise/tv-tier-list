@@ -38,12 +38,18 @@ function App() {
 
     useEffect(function () {
         //mobile UX
-        if(state.itemBeingDragged && isTouchDevice()){
-            window.scroll({
-                top: 0, 
-                left: 0, 
-                behavior: 'smooth' 
-            });
+        if(isTouchDevice()){
+            if(state.itemBeingDragged){
+                window.scroll({
+                    top: 0, 
+                    left: 0, 
+                    behavior: 'smooth' 
+                });
+                document.body.style.overflow = 'hidden';
+            }
+            else{
+                document.body.style.overflow = 'auto';
+            }
         }
     }, [state.itemBeingDragged])
 
