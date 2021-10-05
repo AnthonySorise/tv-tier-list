@@ -10,7 +10,7 @@ import SortableItem from "./SortableItem";
 
 const Droppable = ({ id }) => {
     const { setNodeRef } = useDroppable({ id });
-    const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
+    const {state, dispatch, episodeData, numberOfSeasons, isEpisodeDataLoaded} = useContext(Context);
 
     const onMouseOver = (e) =>{            
         if(state.itemBeingDragged){
@@ -26,7 +26,7 @@ const Droppable = ({ id }) => {
     const onTouchMove = (e) => {
         if(e.changedTouches && e.changedTouches.length && e.changedTouches[0].clientX && e.changedTouches[0].clientY){
             let touchOverElement = document.elementFromPoint(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-            let id = touchOverElement ? touchOverElement.getAttribute("tierID") : null;
+            let id = touchOverElement ? touchOverElement.getAttribute("tierid") : null;
 
             if(state.itemBeingDragged && id){
                 if(id != state.rowBeingAddedTo){
@@ -40,7 +40,7 @@ const Droppable = ({ id }) => {
     }
 
     return (    
-        <div onMouseOver={onMouseOver} onTouchMove={onTouchMove} style={{height:"100%", minHeight:"124px"}} tierID={id}>
+        <div onMouseOver={onMouseOver} onTouchMove={onTouchMove} style={{height:"100%", minHeight:"124px"}} tierid={id}>
                 {state.tierOrder[id] 
                 ?
                 <SortableContext id={id} key={id} items={state.tierOrder[id]} strategy={rectSortingStrategy} style={{width:"100%"}}>

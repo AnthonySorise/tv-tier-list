@@ -14,7 +14,7 @@ function sleep(delay = 0) {
 }
 
 export default function Search() {
-    const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
+    const {state, dispatch, episodeData, numberOfSeasons, isEpisodeDataLoaded} = useContext(Context);
 
     const [inputValue, setInputValue] = React.useState("");
     const [lastQuery, setLastQuery] = React.useState("");

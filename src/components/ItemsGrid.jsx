@@ -25,7 +25,7 @@ const ItemsGrid = (props) => {
                 padding: 0,
                 height:'100%',
             }}
-            tierID = {props.id}
+            tierid = {props.id}
         >
             {props.children}
         </div>

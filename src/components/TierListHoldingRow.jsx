@@ -16,7 +16,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const TierListHoldingRow = (props) => {
-    const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
+    const {state, dispatch, episodeData, numberOfSeasons, isEpisodeDataLoaded} = useContext(Context);
     return (
         <Box mt={1}>
             {state.tierOrder["holding"]

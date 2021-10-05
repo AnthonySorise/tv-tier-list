@@ -15,7 +15,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
 const TierListTierRow = (props) => {
-    const {state, dispatch, episodeData, isEpisodeDataLoaded} = useContext(Context);
+    const {state, dispatch, episodeData, numberOfSeasons, isEpisodeDataLoaded} = useContext(Context);
 
     return (
         <Box sx={{height:"100%", margin:"0", backgroundColor: props.tierColor}}>

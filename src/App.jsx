@@ -8,6 +8,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Search from './components/Search'
 import TierList from './components/TierList'
+import { isTouchDevice } from "./utils/device";
 import './App.css';
 
 
@@ -19,7 +20,7 @@ function App() {
         itemBeingDragged: null
     }
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { episodeData, isEpisodeDataLoaded } =  useAPI('https://api.tvmaze.com/shows/' + state.selectedShowID + '/episodes');
+    const { episodeData, numberOfSeasons, isEpisodeDataLoaded } =  useAPI('https://api.tvmaze.com/shows/' + state.selectedShowID + '/episodes');
 
     useEffect(function () {
         if (isEpisodeDataLoaded && episodeData) {
@@ -31,11 +32,21 @@ function App() {
             let initialHoldingOrder = Object.keys(episodeData);
             initialTierOrder["holding"] = initialHoldingOrder;
 
-
-
             dispatch({ type: reducerActions.updateTierOrder, payload: initialTierOrder });
         }
     }, [isEpisodeDataLoaded, episodeData])
+
+    useEffect(function () {
+        //mobile UX
+        if(state.itemBeingDragged && isTouchDevice()){
+            window.scroll({
+                top: 0, 
+                left: 0, 
+                behavior: 'smooth' 
+            });
+        }
+    }, [state.itemBeingDragged])
+
 
     const theme = createTheme({
         palette: {
@@ -44,12 +55,12 @@ function App() {
     });
 
     return (
-        <Context.Provider value={{ dispatch, state, episodeData, isEpisodeDataLoaded }}>
+        <Context.Provider value={{ dispatch, state, episodeData, numberOfSeasons, isEpisodeDataLoaded }}>
             <ThemeProvider theme={theme}>
 
             <div style={{cursor:(state.itemBeingDragged)?'grabbing':''}}>
                 <Container maxWidth="xl">
-                    <Typography component="div" style={{ backgroundColor: 'black', textAlign: 'center', minHeight: '100vh' }}>
+                    <Typography component="div" style={{ backgroundColor: '#121212', textAlign: 'center', minHeight: '100vh' }}>
 
                         <div style={{paddingTop:"1em", width:"100%", display:"flex", justifyContent:"center"}}>
                             <Search />
