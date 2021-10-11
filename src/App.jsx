@@ -7,8 +7,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Search from './components/Search'
+import Filter from './components/Filter'
 import TierList from './components/TierList'
 import { isTouchDevice } from "./utils/device";
+import Grid from '@mui/material/Grid';
 import './App.css';
 
 
@@ -36,23 +38,22 @@ function App() {
         }
     }, [isEpisodeDataLoaded, episodeData])
 
-    useEffect(function () {
-        //mobile UX
-        if(isTouchDevice()){
-            if(state.itemBeingDragged){
-                window.scroll({
-                    top: 0, 
-                    left: 0, 
-                    behavior: 'smooth' 
-                });
-                document.body.style.overflow = 'hidden';
-            }
-            else{
-                document.body.style.overflow = 'auto';
-            }
-        }
-    }, [state.itemBeingDragged])
-
+    // useEffect(function () {
+    //     //mobile UX
+    //     if(isTouchDevice()){
+    //         if(state.itemBeingDragged){
+    //             window.scroll({
+    //                 top: 0, 
+    //                 left: 0, 
+    //                 behavior: 'smooth' 
+    //             });
+    //             document.body.style.overflow = 'hidden';
+    //         }
+    //         else{
+    //             document.body.style.overflow = 'auto';
+    //         }
+    //     }
+    // }, [state.itemBeingDragged])
 
     const theme = createTheme({
         palette: {
@@ -67,10 +68,15 @@ function App() {
             <div style={{cursor:(state.itemBeingDragged)?'grabbing':''}}>
                 <Container maxWidth="xl">
                     <Typography component="div" style={{ backgroundColor: '#121212', textAlign: 'center', minHeight: '100vh' }}>
-
-                        <div style={{paddingTop:"1em", width:"100%", display:"flex", justifyContent:"center"}}>
-                            <Search />
-                        </div>
+                        <Grid container spacing={4}>
+                            <Grid item xs={12} md={6}>
+                                <Search />
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                <Filter />
+                            </Grid>
+                        </Grid>
+                        
                         <TierList />
 
                     </Typography>

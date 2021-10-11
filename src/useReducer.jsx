@@ -3,7 +3,9 @@ export const reducerActions = {
     updateSelectedShowID: "updateSelectedShowID",
     updateTierOrder: "updateTierOrder",
     updateItemBeingDragged:"updateItemBeingDragged",
-    updateRowBeingAddedTo:"updateRowBeingAddedTo"
+    updateRowBeingAddedTo:"updateRowBeingAddedTo",
+    updateMinFilter:"updateMinFilter",
+    updateMaxFilter:"updateMaxFilter"
 };
 
 export const reducer = (state, action) => {
@@ -28,6 +30,16 @@ export const reducer = (state, action) => {
             return{
                 ...state, 
                 rowBeingAddedTo: action.payload
+            }
+        case reducerActions.updateMinFilter:
+            return{
+                ...state, 
+                minFilter: action.payload
+            }
+        case reducerActions.updateMaxFilter:
+            return{
+                ...state, 
+                maxFilter: action.payload
             }
         default:
             throw new Error("unrecognized reducer action")

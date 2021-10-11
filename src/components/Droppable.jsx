@@ -38,18 +38,22 @@ const Droppable = ({ id }) => {
             }
         }
     }
-
+    let minFilter = state.minFilter ? state.minFilter : 1;
+    let maxFilter = state.maxFilter ? state.maxFilter : numberOfSeasons;
     return (    
         <div onMouseOver={onMouseOver} onTouchMove={onTouchMove} style={{height:"100%", minHeight:"124px"}} tierid={id}>
                 {state.tierOrder[id] 
                 ?
                 <SortableContext id={id} key={id} items={state.tierOrder[id]} strategy={rectSortingStrategy} style={{width:"100%"}}>
-                    <ItemsGrid id={id}>
+                    <ItemsGrid id={id} ref={setNodeRef}>
                         {state.tierOrder[id]
                             ?
-                            state.tierOrder[id].map((episodeId, index) => (
-                                <SortableItem key={episodeId} episodeId={episodeId} index={index} />
-                            ))
+                            state.tierOrder[id].map((episodeId, index) => {
+                                let season = episodeData[episodeId].season;
+                                if(season >= minFilter && season <= maxFilter){
+                                    return <SortableItem key={episodeId} episodeId={episodeId} index={index} />
+                                }
+                            })
                             : null}
                     </ItemsGrid>
                 </SortableContext>

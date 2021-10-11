@@ -7,12 +7,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { CollectionsBookmarkOutlined } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 
-function sleep(delay = 0) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, delay);
-    });
-}
-
 export default function Search() {
     const {state, dispatch, episodeData, numberOfSeasons, isEpisodeDataLoaded} = useContext(Context);
 
@@ -69,11 +63,10 @@ export default function Search() {
         };
     }, [loading, inputValue]);
 
-
     return (
         <Autocomplete
             id="tvShowSearch"
-            sx={{ width: 300 }}
+            sx={{ ml:'auto', mt:'2em', width:{sm:'100%', md:300} }}
             open={open}
             onOpen={() => {
                 setOpen(true);
