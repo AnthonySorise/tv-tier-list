@@ -32,7 +32,7 @@ export default function Filter() {
     };
     return (
         <Box sx={{ width:{sm:'100%', md:300}, mr:'auto', mt:{sm:0, md:'2.25em'} }}>
-            <Box style={{color:"white", margin:'0!important', padding:'0!important', minHeight:'18px'}}>{valuetext()}</Box>
+            <Box style={{color:"white", margin:'0!important', padding:'0!important', minHeight:'24px'}}>{valuetext()}</Box>
             <Slider
                 value={sliderValues}
                 onChange={handleChange}

@@ -23,6 +23,9 @@ const HtmlTooltip = styled(({ className, ...props }) => (
     [`& .${tooltipClasses.tooltip} h4`]: {
         fontWeight:'bold'
     },
+    [`& .${tooltipClasses.tooltip} i`]: {
+        fontWeight:'normal'
+    },
     [`& .${tooltipClasses.tooltip} p`]: {
         marginBottom:'0',
         marginTop:'0',
@@ -36,10 +39,11 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 const Item = forwardRef(({ episodeId, index, style, ...props }, ref) => {
     const {state, dispatch, episodeData, numberOfSeasons, isEpisodeDataLoaded} = useContext(Context);
     let episode = episodeData[episodeId];
+    let episodeDateString = episode.airdate ? new Date(episode.airdate).toDateString(): null;
     let episodeLabel = 'S' + prependZero(episode?.season) + 'E' + prependZero(episode?.number);
     let episodeImage = episode && episode.image && episode.image.medium ? episode.image.medium : '';
 
-
+    console.log(episode);
     const color01 = '#2de2e6';
     const color02 = '#d40078';
 
@@ -65,9 +69,14 @@ const Item = forwardRef(({ episodeId, index, style, ...props }, ref) => {
                 <HtmlTooltip title={
                     <React.Fragment>
                         {episode.name}
-                        <br />
                         {
-                            <h4>{episode.summary}</h4>
+                            (episodeDateString)
+                            ? 
+                            <div><i>{episodeDateString}</i></div>
+                            : null
+                        } 
+                        {
+                            (episode.summary)
                             ? 
                             <div dangerouslySetInnerHTML={{__html: episode.summary}} /> 
                             : null
