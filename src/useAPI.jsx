@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 
 function useAPI(url) {
     const [episodeData, setEpisodeData] = useState(null)
@@ -6,7 +6,7 @@ function useAPI(url) {
     const [isEpisodeDataLoaded, setIsEpisodeDataLoaded] = useState(false)
 
     useEffect(() => {
-        if (url == "https://api.tvmaze.com/shows/-1/episodes") {
+        if (url === "https://api.tvmaze.com/shows/-1/episodes") {
             setEpisodeData(null);
             setNumberOfSeasons(0);
             setIsEpisodeDataLoaded(false);

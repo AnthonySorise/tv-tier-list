@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, createContext } from "react";
+import React, { useEffect, useReducer, createContext } from "react";
 import { reducer } from './useReducer'
 import { reducerActions } from './useReducer'
 import useAPI from './useAPI';
@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import Search from './components/Search'
 import Filter from './components/Filter'
 import TierList from './components/TierList'
-import { isTouchDevice } from "./utils/device";
 import Grid from '@mui/material/Grid';
 import './App.css';
 

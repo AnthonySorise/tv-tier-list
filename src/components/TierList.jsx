@@ -1,4 +1,4 @@
-import {useContext, useEffect} from 'react';
+import {useContext} from 'react';
 import {Context} from '../App.jsx'
 import { reducerActions } from '../useReducer'
 import {
@@ -22,7 +22,7 @@ import TierListTierRow from './TierListTierRow';
 import TierListHoldingRow from './TierListHoldingRow';
 
 const TierList = (props) => {
-    const {state, dispatch, episodeData, numberOfSeasons, isEpisodeDataLoaded} = useContext(Context);
+    const {state, dispatch} = useContext(Context);
     
     const sensors = useSensors(
         useSensor(MouseSensor),
@@ -85,7 +85,6 @@ const TierList = (props) => {
     return (
         <DndContext
             sensors={sensors}
-            // collisionDetection={closestCenter}
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
             onDragCancel={handleDragCancel}

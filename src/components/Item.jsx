@@ -8,7 +8,6 @@ import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { prependZero } from '../utils/textFormatting';
 import { isTouchDevice } from '../utils/device';
 import Gradient from 'javascript-color-gradient'
-import { fontWeight } from '@mui/system';
 
 const HtmlTooltip = styled(({ className, ...props }) => (
     <Tooltip {...props} classes={{ popper: className }} />
@@ -37,7 +36,7 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
 const Item = forwardRef(({ episodeId, index, style, ...props }, ref) => {
-    const {state, dispatch, episodeData, numberOfSeasons, isEpisodeDataLoaded} = useContext(Context);
+    const {state, episodeData, numberOfSeasons} = useContext(Context);
     let episode = episodeData[episodeId];
     let episodeDateString = episode.airdate ? new Date(episode.airdate).toDateString(): null;
     let episodeLabel = 'S' + prependZero(episode?.season) + 'E' + prependZero(episode?.number);
@@ -90,7 +89,7 @@ const Item = forwardRef(({ episodeId, index, style, ...props }, ref) => {
 
                 }
             </div>
-            <div style={{ backgroundImage: `url('${episodeImage}')`, backgroundSize: 'contain', height: '100px', backgroundPosition:'center', backgroundSize:'cover'}}>
+            <div style={{ backgroundImage: `url('${episodeImage}')`, height: '100px', backgroundPosition:'center', backgroundSize:'cover'}}>
                 <span>{!episodeImage ? episode.name : ''}</span>
             </div>
         </CardContent>

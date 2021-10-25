@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext } from "react";
+import React, { useContext } from "react";
 import {Context} from '../App.jsx';
 import { reducerActions } from '../useReducer';
 import { useDroppable } from "@dnd-kit/core";
@@ -10,15 +10,15 @@ import SortableItem from "./SortableItem";
 
 const Droppable = ({ id }) => {
     const { setNodeRef } = useDroppable({ id });
-    const {state, dispatch, episodeData, numberOfSeasons, isEpisodeDataLoaded} = useContext(Context);
+    const {state, dispatch, episodeData, numberOfSeasons} = useContext(Context);
 
     const onMouseOver = (e) =>{            
         if(state.itemBeingDragged){
-            if(id != state.rowBeingAddedTo){
+            if(id !== state.rowBeingAddedTo){
                 dispatch({type:reducerActions.updateRowBeingAddedTo, payload:id});
             }
         }
-        else if (state.updateRowBeingAddedTo != null){
+        else if (state.updateRowBeingAddedTo !== null){
             dispatch({type:reducerActions.updateRowBeingAddedTo, payload:null});
         }
     }
@@ -29,11 +29,11 @@ const Droppable = ({ id }) => {
             let id = touchOverElement ? touchOverElement.getAttribute("tierid") : null;
 
             if(state.itemBeingDragged && id){
-                if(id != state.rowBeingAddedTo){
+                if(id !== state.rowBeingAddedTo){
                     dispatch({type:reducerActions.updateRowBeingAddedTo, payload:id});
                 }
             }
-            else if (state.updateRowBeingAddedTo != null){
+            else if (state.updateRowBeingAddedTo !== null){
                 dispatch({type:reducerActions.updateRowBeingAddedTo, payload:null});
             }
         }
@@ -53,6 +53,7 @@ const Droppable = ({ id }) => {
                                 if(season >= minFilter && season <= maxFilter){
                                     return <SortableItem key={episodeId} episodeId={episodeId} index={index} />
                                 }
+                                else{return null}
                             })
                             : null}
                     </ItemsGrid>

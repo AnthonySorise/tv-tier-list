@@ -1,21 +1,19 @@
-import React, { useState, useReducer, useContext } from "react";
+import React, { useContext } from "react";
 import {Context} from '../App.jsx';
 import { reducerActions } from '../useReducer'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
-import { CollectionsBookmarkOutlined } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 
 export default function Search() {
-    const {state, dispatch, episodeData, numberOfSeasons, isEpisodeDataLoaded} = useContext(Context);
-
+    const {state, dispatch} = useContext(Context);
     const [inputValue, setInputValue] = React.useState("");
     const [lastQuery, setLastQuery] = React.useState("");
     const [open, setOpen] = React.useState(false);
     const [options, setOptions] = React.useState([]);
     const [lastOptions, setLastOptions] = React.useState([]);
-    const loading = (open && options.length === 0 && inputValue.length != 0);
+    const loading = (open && options.length === 0 && inputValue.length !== 0);
     
     React.useEffect(() => {
         setOptions([])
@@ -24,7 +22,7 @@ export default function Search() {
     React.useEffect(() => {
         let active = true;
 
-        if (!loading || !inputValue || inputValue == lastQuery) {
+        if (!loading || !inputValue || inputValue === lastQuery) {
             return undefined;
         }
 
@@ -75,7 +73,7 @@ export default function Search() {
                 setOpen(false);
             }}
             onChange={(event, value) => {
-                if(value && state.selectedShowID != value.id){
+                if(value && state.selectedShowID !== value.id){
                     dispatch({type:reducerActions.updateSelectedShowID , payload:value.id})
                 }  
             }}

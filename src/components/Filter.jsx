@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { Context } from '../App.jsx';
 import { reducerActions } from '../useReducer'
 import Box from '@mui/material/Box';
@@ -7,7 +7,7 @@ import Slider from '@mui/material/Slider';
 
 
 export default function Filter() {
-    const { state, dispatch, episodeData, numberOfSeasons, isEpisodeDataLoaded } = useContext(Context);
+    const { dispatch, numberOfSeasons } = useContext(Context);
     const [sliderValues, setSliderValues] = React.useState([1, numberOfSeasons]);
 
     useEffect(function(){
