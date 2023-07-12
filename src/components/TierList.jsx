@@ -74,7 +74,6 @@ const TierList = (props) => {
                     )
                 }
             dispatch({ type: reducerActions.updateTierOrder, payload: newOrder });
-            console.log(newOrder);
         }
     };
 

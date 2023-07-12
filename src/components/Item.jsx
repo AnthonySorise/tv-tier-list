@@ -42,7 +42,7 @@ const Item = forwardRef(({ episodeId, index, style, ...props }, ref) => {
     let episodeLabel = 'S' + prependZero(episode?.season) + 'E' + prependZero(episode?.number);
     let episodeImage = episode && episode.image && episode.image.medium ? episode.image.medium : '';
 
-    console.log(episode);
+    //console.log(episode);
     const color01 = '#2de2e6';
     const color02 = '#d40078';
 
@@ -50,9 +50,9 @@ const Item = forwardRef(({ episodeId, index, style, ...props }, ref) => {
 
     if(numberOfSeasons > 2){
         const colorGradient = new Gradient();
-        colorGradient.setGradient("#2de2e6", "#d40078");
+        colorGradient.setColorGradient("#2de2e6", "#d40078");
         colorGradient.setMidpoint(numberOfSeasons-1);
-        const moreColors = colorGradient.getArray();
+        const moreColors = colorGradient.getColors();
         colorArray.splice(1, 0, ...moreColors);
     }
 

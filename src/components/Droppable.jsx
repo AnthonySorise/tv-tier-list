@@ -12,13 +12,13 @@ const Droppable = ({ id }) => {
     const { setNodeRef } = useDroppable({ id });
     const {state, dispatch, episodeData, numberOfSeasons} = useContext(Context);
 
-    const onMouseOver = (e) =>{            
+    const onMouseOver = (e) =>{
         if(state.itemBeingDragged){
             if(id !== state.rowBeingAddedTo){
                 dispatch({type:reducerActions.updateRowBeingAddedTo, payload:id});
             }
         }
-        else if (state.updateRowBeingAddedTo !== null){
+        else if (state.rowBeingAddedTo !== null){
             dispatch({type:reducerActions.updateRowBeingAddedTo, payload:null});
         }
     }
@@ -33,32 +33,32 @@ const Droppable = ({ id }) => {
                     dispatch({type:reducerActions.updateRowBeingAddedTo, payload:id});
                 }
             }
-            else if (state.updateRowBeingAddedTo !== null){
+            else if (state.rowBeingAddedTo !== null){
                 dispatch({type:reducerActions.updateRowBeingAddedTo, payload:null});
             }
         }
     }
     let minFilter = state.minFilter ? state.minFilter : 1;
     let maxFilter = state.maxFilter ? state.maxFilter : numberOfSeasons;
-    return (    
+    return (
         <div onMouseOver={onMouseOver} onTouchMove={onTouchMove} style={{height:"100%", minHeight:"124px"}} tierid={id}>
-                {state.tierOrder[id] 
-                ?
-                <SortableContext id={id} key={id} items={state.tierOrder[id]} strategy={rectSortingStrategy} style={{width:"100%"}}>
-                    <ItemsGrid id={id} ref={setNodeRef}>
-                        {state.tierOrder[id]
-                            ?
-                            state.tierOrder[id].map((episodeId, index) => {
-                                let season = episodeData[episodeId].season;
-                                if(season >= minFilter && season <= maxFilter){
-                                    return <SortableItem key={episodeId} episodeId={episodeId} index={index} />
-                                }
-                                else{return null}
-                            })
-                            : null}
-                    </ItemsGrid>
-                </SortableContext>
-                : null }
+            {state.tierOrder[id] 
+            ?
+            <SortableContext id={id} key={id} items={state.tierOrder[id]} strategy={rectSortingStrategy} style={{width:"100%"}}>
+                <ItemsGrid id={id} ref={setNodeRef}>
+                    {state.tierOrder[id]
+                        ?
+                        state.tierOrder[id].map((episodeId, index) => {
+                            let season = episodeData[episodeId].season;
+                            if(season >= minFilter && season <= maxFilter){
+                                return <SortableItem key={episodeId} episodeId={episodeId} index={index} />
+                            }
+                            else{return null}
+                        })
+                        : null}
+                </ItemsGrid>
+            </SortableContext>
+            : null }
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
-import useWindowSize from '../useWindowSize'
+import useWindowSize from '../useWindowSize';
 
-const ItemsGrid = (props) => {
+const ItemsGrid = React.forwardRef((props, ref) => {
     const width = useWindowSize().width;
     const columns = useMemo(()=>{
         if(width > 1025){
@@ -18,6 +18,7 @@ const ItemsGrid = (props) => {
 
     return (
         <div
+            ref={ref}
             style={{
                 display: 'grid',
                 gridTemplateColumns: `repeat(${columns}, 1fr)`,
@@ -30,5 +31,8 @@ const ItemsGrid = (props) => {
             {props.children}
         </div>
     );
-}
+});
+
+ItemsGrid.displayName = 'ItemsGrid';
+
 export default ItemsGrid;
