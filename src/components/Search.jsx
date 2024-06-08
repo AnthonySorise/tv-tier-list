@@ -1,25 +1,25 @@
-import React, { useContext } from "react";
-import {Context} from '../App.jsx';
-import { reducerActions } from '../useReducer'
+import React, { useContext, useEffect, useState } from "react";
+import { Context } from '../App.jsx';
+import { reducerActions } from '../useReducer';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 export default function Search() {
-    const {state, dispatch} = useContext(Context);
-    const [inputValue, setInputValue] = React.useState("");
-    const [lastQuery, setLastQuery] = React.useState("");
-    const [open, setOpen] = React.useState(false);
-    const [options, setOptions] = React.useState([]);
-    const [lastOptions, setLastOptions] = React.useState([]);
-    const loading = (open && options.length === 0 && inputValue.length !== 0);
-    
-    React.useEffect(() => {
-        setOptions([])
+    const { state, dispatch } = useContext(Context);
+    const [inputValue, setInputValue] = useState("");
+    const [lastQuery, setLastQuery] = useState("");
+    const [open, setOpen] = useState(false);
+    const [options, setOptions] = useState([]);
+    const [lastOptions, setLastOptions] = useState([]);
+    const loading = open && options.length === 0 && inputValue.length !== 0;
+
+    useEffect(() => {
+        setOptions([]);
     }, [inputValue]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         let active = true;
 
         if (!loading || !inputValue || inputValue === lastQuery) {
@@ -28,32 +28,31 @@ export default function Search() {
 
         setLastQuery(inputValue);
         (async () => {
-            fetch("https://api.tvmaze.com/search/shows?q=" + inputValue)
-            .then(resp => resp.json())
-            .then((data)=>{
-                let options = [];
-                for(let i = 0; i < data.length; i++){
-                    let title = data[i].show.name;
-                    let premierDate = new Date(data[i].show.premiered)
-                    let year = premierDate.getUTCFullYear();
-                    let id = data[i].show.id;
+            fetch('https://api.tvmaze.com/search/shows?q=' + inputValue)
+                .then((resp) => resp.json())
+                .then((data) => {
+                    let options = [];
+                    for (let i = 0; i < data.length; i++) {
+                        let title = data[i].show.name;
+                        let premierDate = new Date(data[i].show.premiered);
+                        let year = premierDate.getUTCFullYear();
+                        let id = data[i].show.id;
 
-                    options.push({title:title, year:year, id:id})
-                }
-
-                if (active) {
-                    if(options.length){
-                        setOptions(options);
-                        setLastOptions(options);
+                        options.push({ title: title, year: year, id: id });
                     }
-                    else{
-                        setOptions(lastOptions)
-                    }
-                }
 
-            }).catch(e => {
-                console.log("error: ", e);
-            });
+                    if (active) {
+                        if (options.length) {
+                            setOptions(options);
+                            setLastOptions(options);
+                        } else {
+                            setOptions(lastOptions);
+                        }
+                    }
+                })
+                .catch((e) => {
+                    console.log('error: ', e);
+                });
         })();
 
         return () => {
@@ -64,7 +63,7 @@ export default function Search() {
     return (
         <Autocomplete
             id="tvShowSearch"
-            sx={{ ml:'auto', mt:'2em', width:{sm:'100%', md:300} }}
+            sx={{ ml: 'auto', mt: '2em', width: { sm: '100%', md: 300 } }}
             open={open}
             onOpen={() => {
                 setOpen(true);
@@ -72,13 +71,20 @@ export default function Search() {
             onClose={() => {
                 setOpen(false);
             }}
+            value={options.find(option => option.id === state.selectedShowID) || null}
             onChange={(event, value) => {
-                if(value && state.selectedShowID !== value.id){
-                    dispatch({type:reducerActions.updateSelectedShowID , payload:value.id})
-                }  
+                if (value && state.selectedShowID !== value.id) {
+                    dispatch({ type: reducerActions.updateSelectedShowID, payload: value.id });
+                    setInputValue(value.title + " (" + value.year + ")"); // Keep the search term in the input
+                }
             }}
-            filterOptions={(options, state) => {return options}}
-            onInputChange={(event, val)=>{setInputValue(val)}}
+            inputValue={inputValue}
+            onInputChange={(event, val) => {
+                if (event && event.type === 'change') {
+                    setInputValue(val);
+                }
+            }}
+            filterOptions={(options, state) => { return options }}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             getOptionLabel={(option) => option.title + " (" + option.year + ")"}
             options={options}
@@ -98,17 +104,14 @@ export default function Search() {
                     }}
                 />
             )}
-            renderOption={(props, option) => (
-                <Box component="div"  
-                {...props} 
-                >
-                   
-                    {option.title + " (" + option.year + ")"}
-
-                </Box>
-            )}
-
-
+            renderOption={(props, option) => {
+                const { key, ...other } = props; // Separate key from other props
+                return (
+                    <Box component="div" key={option.id} {...other}>
+                        {option.title + " (" + option.year + ")"}
+                    </Box>
+                );
+            }}
         />
     );
 }
