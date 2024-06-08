@@ -41,7 +41,7 @@ function App() {
                 });
             }
         },
-        [isEpisodeDataLoaded, episodeData]
+        [episodeData]
     );
 
     const theme = createTheme({
