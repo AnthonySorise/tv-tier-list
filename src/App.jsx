@@ -20,13 +20,13 @@ function App() {
         itemBeingDragged: null,
     };
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { episodeData, numberOfSeasons, isEpisodeDataLoaded } = useAPI(
+    const { episodeData, loadedURL } = useAPI(
         'https://api.tvmaze.com/shows/' + state.selectedShowID + '/episodes'
     );
 
     useEffect(
         function () {
-            if (isEpisodeDataLoaded && episodeData) {
+            if (episodeData) {
                 let initialTierOrder = {};
                 for (let i = 0; i < tiers.length; i++) {
                     initialTierOrder[tiers[i].label] = [];
@@ -41,7 +41,7 @@ function App() {
                 });
             }
         },
-        [episodeData]
+        [loadedURL]
     );
 
     const theme = createTheme({
@@ -56,8 +56,7 @@ function App() {
                 dispatch,
                 state,
                 episodeData,
-                numberOfSeasons,
-                isEpisodeDataLoaded,
+                loadedURL,
             }}
         >
             <ThemeProvider theme={theme}>

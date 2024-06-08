@@ -2,14 +2,12 @@ import { useState, useEffect } from 'react'
 
 function useAPI(url) {
     const [episodeData, setEpisodeData] = useState(null)
-    const [numberOfSeasons, setNumberOfSeasons] = useState(0)
-    const [isEpisodeDataLoaded, setIsEpisodeDataLoaded] = useState(false)
+    const [loadedURL, setLoadedURL] = useState("")
 
     useEffect(() => {
         if (url === "https://api.tvmaze.com/shows/-1/episodes") {
             setEpisodeData(null);
-            setNumberOfSeasons(0);
-            setIsEpisodeDataLoaded(false);
+            setLoadedURL("");
             return
         }
         else {
@@ -22,21 +20,15 @@ function useAPI(url) {
                         episodeData[episode.id.toString()] = episode;
                     });
                     setEpisodeData(episodeData);
-
-                    if(data && data.length && data[data.length-1].season){
-                        setNumberOfSeasons(data[data.length-1].season);
-                    }
-                    setIsEpisodeDataLoaded(true);
+                    setLoadedURL(url); // Set the loadedURL to match the url
                 })
         }
-
 
     }, [url]);
 
     return {
         episodeData,
-        numberOfSeasons,
-        isEpisodeDataLoaded,
+        loadedURL,
     }
 }
 

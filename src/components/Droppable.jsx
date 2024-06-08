@@ -10,7 +10,7 @@ import SortableItem from "./SortableItem";
 
 const Droppable = ({ id }) => {
     const { setNodeRef } = useDroppable({ id });
-    const {state, dispatch, episodeData, numberOfSeasons} = useContext(Context);
+    const {state, dispatch, episodeData} = useContext(Context);
 
     const onMouseOver = (e) =>{
         if(state.itemBeingDragged){
@@ -39,7 +39,7 @@ const Droppable = ({ id }) => {
         }
     }
     let minFilter = state.minFilter ? state.minFilter : 1;
-    let maxFilter = state.maxFilter ? state.maxFilter : numberOfSeasons;
+    let maxFilter = state.maxFilter ? state.maxFilter : 1;
     return (
         <div onMouseOver={onMouseOver} onTouchMove={onTouchMove} style={{height:"100%", minHeight:"124px"}} tierid={id}>
             {state.tierOrder[id] 
@@ -49,11 +49,13 @@ const Droppable = ({ id }) => {
                     {state.tierOrder[id]
                         ?
                         state.tierOrder[id].map((episodeId, index) => {
-                            let season = episodeData[episodeId].season;
-                            if(season >= minFilter && season <= maxFilter){
-                                return <SortableItem key={episodeId} episodeId={episodeId} index={index} />
+                            if (episodeData && episodeData[episodeId]) {
+                                let season = episodeData[episodeId].season;
+                                if(season >= minFilter && season <= maxFilter){
+                                    return <SortableItem key={episodeId} episodeId={episodeId} index={index} />
+                                }
                             }
-                            else{return null}
+                            return null;
                         })
                         : null}
                 </ItemsGrid>

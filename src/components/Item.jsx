@@ -36,22 +36,22 @@ const HtmlTooltip = styled(({ className, ...props }) => (
 }));
 
 const Item = forwardRef(({ episodeId, index, style, ...props }, ref) => {
-    const {state, episodeData, numberOfSeasons} = useContext(Context);
+    const {state, episodeData} = useContext(Context);
     let episode = episodeData[episodeId];
     let episodeDateString = episode.airdate ? new Date(episode.airdate).toDateString(): null;
     let episodeLabel = 'S' + prependZero(episode?.season) + 'E' + prependZero(episode?.number);
     let episodeImage = episode && episode.image && episode.image.medium ? episode.image.medium : '';
 
-    //console.log(episode);
     const color01 = '#2de2e6';
     const color02 = '#d40078';
 
     let colorArray = [color01, color02];
 
-    if(numberOfSeasons > 2){
+    const seasons = Math.max(...Object.values(episodeData).map(episode => episode.season));
+    if(seasons > 2){
         const colorGradient = new Gradient();
         colorGradient.setColorGradient("#2de2e6", "#d40078");
-        colorGradient.setMidpoint(numberOfSeasons-1);
+        colorGradient.setMidpoint(seasons-1);
         const moreColors = colorGradient.getColors();
         colorArray.splice(1, 0, ...moreColors);
     }
