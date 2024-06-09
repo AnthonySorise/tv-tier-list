@@ -12,7 +12,7 @@ export default function Filter() {
     const [numberOfSeasons, setNumberOfSeasons] = React.useState(1);
     const [isTooManyEpisodesLoaded, setIsTooManyEpisodesLoaded] = React.useState(false);
 
-    const episodeLoadWarningThreshold = 50;
+    const episodeLoadWarningThreshold = 75;
 
     useEffect(function(){
         dispatch({type:reducerActions.updateMinFilter, payload:minSliderValue});
